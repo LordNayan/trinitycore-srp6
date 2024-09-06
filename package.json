@@ -4,9 +4,8 @@
   "description": "Generate verifier for TrinityCore SRP6 authentication.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./test/",
-    "prepublish": "npx -p typescript tsc index.js  --declaration --allowJs --emitDeclarationOnly --outDir types"
-  },
+    "test": "mocha ./test/"
+    },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Miorey/trinitycore-srp6.git"
@@ -24,7 +23,8 @@
   "homepage": "https://github.com/Miorey/trinitycore-srp6#readme",
   "dependencies": {
     "big-integer": "^1.6.51",
-    "bigint-buffer": "^1.1.5"
+    "bigint-buffer": "^1.1.5",
+    "trinitycore-srp6": "^1.1.1"
   },
   "devDependencies": {
     "@types/node": "^20.2.5",
