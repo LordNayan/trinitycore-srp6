@@ -1,0 +1,20 @@
+checklist:
+
+repo_name: 
+
+main code file path and content: src/index.js
+
+new_version: src/index.js
+
+context file path and content: files that the main file depends on (if no dependency, leaves this empty)
+
+instruction: 
+Model_response_screenshot: https://drive.google.com/file/d/1mfNSkvZwFaqtj0NSqG4LQ2iUGEJlrtVr/view?usp=drive_link
+
+docker_image: https://drive.google.com/file/d/1GDqOjGlT16NQWzbT6mp3GbDlWZCDVsaO/view?usp=sharing
+
+unit_tests: the unit test content that tests the main model generated code.
+
+language: JavaScript
+
+screenshot: https://drive.google.com/file/d/15Sa6wt3h9ieKRwc_5gwARLDdHEn5cLG9/view?usp=drive_link

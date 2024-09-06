@@ -10,7 +10,6 @@ function assert_ (val, msg = `assertion`) {
     if (!val) { throw new Error(msg) }
 }
 
-
 /**
  * Parameters for cryptographic operations.
  * @typedef {Object} Params
@@ -65,7 +64,6 @@ const modPow = (base, exponent, modulus) => {
     return result
 }
 
-
 /**
  * Asserts that the argument is a buffer.
  * @param {Buffer} arg - The argument to check.
@@ -116,4 +114,48 @@ export const computeVerifier = (params, salt, identity, password) => {
     const verifier = modPow(g, x, N)
     const lEVerifier = verifier.toString(16).match(/.{2}/g).reverse().join(``)
     return Buffer.from(lEVerifier, `hex`)
+}
+
+/**
+ * Generates an ECC key pair.
+ * @returns {Promise<crypto.KeyObject>} - Promise that resolves to an ECC key pair.
+ */
+export const generateECCKeyPair = () => {
+    return new Promise((resolve, reject) => {
+        crypto.generateKeyPair('ec', {
+            namedCurve: 'secp256k1',
+        }, (err, publicKey, privateKey) => {
+            if (err) {
+                return reject(err)
+            }
+            resolve({ publicKey, privateKey })
+        })
+    })
+}
+
+/**
+ * Signs a message using the provided ECC private key.
+ * @param {crypto.KeyObject} privateKey - The ECC private key.
+ * @param {string} message - The message to sign.
+ * @returns {Buffer} - The signature.
+ */
+export const signMessage = (privateKey, message) => {
+    const sign = crypto.createSign('SHA256')
+    sign.update(message)
+    sign.end()
+    return sign.sign(privateKey)
+}
+
+/**
+ * Verifies a signature against a message using the provided ECC public key.
+ * @param {crypto.KeyObject} publicKey - The ECC public key.
+ * @param {string} message - The original message.
+ * @param {Buffer} signature - The signature to verify.
+ * @returns {boolean} - True if the signature is valid, false otherwise.
+ */
+export const verifySignature = (publicKey, message, signature) => {
+    const verify = crypto.createVerify('SHA256')
+    verify.update(message)
+    verify.end()
+    return verify.verify(publicKey, signature)
 }
